@@ -28,6 +28,7 @@ public class AppController extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Parse.enableLocalDatastore(this);
         Parse.initialize(this, "JH4PvyQBIfygc3ZpVPutfrrzXhZzBpg5aHyOXmUQ", "0WVeOSktZSQLf1deZQjH4bE7Z7Z8FVCYmSVQZZSs");
     }
 }
