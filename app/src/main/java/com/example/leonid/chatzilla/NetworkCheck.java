@@ -28,20 +28,22 @@ public class NetworkCheck {
 
     Context context;
 
-    public NetworkCheck(Context context){
+    public NetworkCheck(Context context) {
         this.context = context;
     }
 
     // Checks if network connection avaliable  and if not show toast message
     public boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
         if (ni == null) {
             Toast.makeText(context, context.getResources().getString(R.string.no_connection),
                     Toast.LENGTH_LONG).show();
             return false;
-        } else
+        } else {
             return true;
+        }
 
     }
 }

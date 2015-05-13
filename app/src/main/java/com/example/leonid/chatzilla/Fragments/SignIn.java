@@ -16,25 +16,26 @@
 
 package com.example.leonid.chatzilla.Fragments;
 
+import com.example.leonid.chatzilla.R;
+
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.leonid.chatzilla.NetworkCheck;
-import com.example.leonid.chatzilla.R;
-
 /**
  * Created by Leo on 5/11/2015.
  */
-public class LogIn  extends Fragment {
+public class SignIn extends Fragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.login_fragment, container, false);
-        NetworkCheck networkCheck = new NetworkCheck(getActivity());
+        //set picture as background
+        rootView.setBackground(getResources().getDrawable(R.drawable.login_zilla));
 
         return rootView;
     }

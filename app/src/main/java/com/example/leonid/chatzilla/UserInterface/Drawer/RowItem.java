@@ -18,7 +18,9 @@ package com.example.leonid.chatzilla.UserInterface.Drawer;
 // a Bean Class RowItem which is used for setting and getting row data's of each items in ListView ( icons and titles).
 
 public class RowItem {
+
     private String title;
+
     private int icon;
 
     public RowItem(String title, int icon) {

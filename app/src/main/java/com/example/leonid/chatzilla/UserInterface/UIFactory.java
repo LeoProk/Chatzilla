@@ -15,11 +15,12 @@
  */
 package com.example.leonid.chatzilla.UserInterface;
 
+import com.example.leonid.chatzilla.Interfaces.UIInterface;
+
 import android.content.Context;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
-import com.example.leonid.chatzilla.Interfaces.UIInterface;
 
 /**
  * Factory for tollbar and drawer
@@ -27,11 +28,13 @@ import com.example.leonid.chatzilla.Interfaces.UIInterface;
 public class UIFactory {
 
 
-    public static UIInterface getUI(Context context,Toolbar toolbar){
-            return new CustomToolbar(context,toolbar);
+    public static UIInterface getUI(Context context, Toolbar toolbar) {
+        return new CustomToolbar(context, toolbar);
     }
-    public static UIInterface getUI(Context context, DrawerLayout mDrawerLayout, ListView mDrawerList){
-            return new CustomDrawer(context,mDrawerLayout,mDrawerList);
+
+    public static UIInterface getUI(Context context, DrawerLayout mDrawerLayout,
+            ListView mDrawerList) {
+        return new CustomDrawer(context, mDrawerLayout, mDrawerList);
     }
 
 }

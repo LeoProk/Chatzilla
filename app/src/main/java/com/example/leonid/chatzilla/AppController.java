@@ -16,9 +16,9 @@
 
 package com.example.leonid.chatzilla;
 
-import android.app.Application;
-
 import com.parse.Parse;
+
+import android.app.Application;
 
 /**
  * Created by Leo on 5/11/2015.
@@ -29,6 +29,7 @@ public class AppController extends Application {
     public void onCreate() {
         super.onCreate();
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "JH4PvyQBIfygc3ZpVPutfrrzXhZzBpg5aHyOXmUQ", "0WVeOSktZSQLf1deZQjH4bE7Z7Z8FVCYmSVQZZSs");
+        Parse.initialize(this, "JH4PvyQBIfygc3ZpVPutfrrzXhZzBpg5aHyOXmUQ",
+                "0WVeOSktZSQLf1deZQjH4bE7Z7Z8FVCYmSVQZZSs");
     }
 }

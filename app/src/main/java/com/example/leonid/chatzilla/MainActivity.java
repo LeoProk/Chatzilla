@@ -17,23 +17,22 @@
 
 package com.example.leonid.chatzilla;
 
-import android.app.Activity;
+import com.example.leonid.chatzilla.Fragments.ContactsList;
+import com.example.leonid.chatzilla.Fragments.SignIn;
+import com.example.leonid.chatzilla.Interfaces.UIInterface;
+import com.example.leonid.chatzilla.UserInterface.UIFactory;
+import com.parse.ParseUser;
+
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
-import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ListView;
-
-import com.example.leonid.chatzilla.Fragments.ContactsList;
-import com.example.leonid.chatzilla.Fragments.LogIn;
-import com.example.leonid.chatzilla.Interfaces.UIInterface;
-import com.example.leonid.chatzilla.UserInterface.UIFactory;
-import com.parse.ParseUser;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -44,24 +43,26 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //create the toolbar
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        UIInterface getToolbar = UIFactory.getUI(this,toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        UIInterface getToolbar = UIFactory.getUI(this, toolbar);
         getToolbar.doTask();
         //create the drawer
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         ListView mDrawerList = (ListView) findViewById(R.id.slider_list);
         UIInterface getDrawer = UIFactory.getUI(this, mDrawerLayout, mDrawerList);
-        mDrawerToggle = (ActionBarDrawerToggle)getDrawer.doTask();
-        UserGenerator userGenerator = new UserGenerator(this);
-        userGenerator.getContacts();
+        mDrawerToggle = (ActionBarDrawerToggle) getDrawer.doTask();
+        GenerateUser generateUser = new GenerateUser(this);
+        generateUser.getContacts();
         if (ParseUser.getCurrentUser() == null) {
-            Fragment fragment = new LogIn();
+            Fragment fragment = new SignIn();
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter").addToBackStack("twitter").commit();
+            fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter")
+                    .addToBackStack("twitter").commit();
         } else {
             Fragment fragment = new ContactsList();
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter").addToBackStack("twitter").commit();
+            fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter")
+                    .addToBackStack("twitter").commit();
         }
     }
 

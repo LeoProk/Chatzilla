@@ -19,5 +19,15 @@ package com.example.leonid.chatzilla;
 /**
  * Created by Leo on 5/11/2015.
  */
-public class Contact {
+public class User {
+
+    private String mName;
+
+    private String mPhone;
+
+    public User(String name, String phone) {
+        mName = name;
+        mPhone = phone;
+
+    }
 }
