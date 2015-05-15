@@ -20,10 +20,14 @@ import com.parse.Parse;
 
 import android.app.Application;
 
+import java.util.List;
+
 /**
  * Created by Leo on 5/11/2015.
  */
 public class AppController extends Application {
+
+    private List<User> mFriends;
 
     @Override
     public void onCreate() {

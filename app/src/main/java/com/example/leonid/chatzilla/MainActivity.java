@@ -17,7 +17,7 @@
 
 package com.example.leonid.chatzilla;
 
-import com.example.leonid.chatzilla.Fragments.ContactsList;
+import com.example.leonid.chatzilla.Fragments.FriendList;
 import com.example.leonid.chatzilla.Fragments.SignIn;
 import com.example.leonid.chatzilla.Interfaces.UIInterface;
 import com.example.leonid.chatzilla.UserInterface.UIFactory;
@@ -59,7 +59,7 @@ public class MainActivity extends ActionBarActivity {
             fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter")
                     .addToBackStack("twitter").commit();
         } else {
-            Fragment fragment = new ContactsList();
+            Fragment fragment = new FriendList();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter")
                     .addToBackStack("twitter").commit();

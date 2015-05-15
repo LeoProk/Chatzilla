@@ -35,15 +35,20 @@ import java.util.List;
  */
 public class GenerateUser {
 
-    Context context;
+    Context mContext;
+    List<User>  mAppUsers;
+    ParseQuery<ParseObject> mQuery;
 
     public GenerateUser(Context context) {
-        this.context = context;
+        mContext = context;
     }
 
+
     // get the phone number of all phone contacts
-    public void getContacts() {
-        ContentResolver cr = context.getContentResolver();
+    public List<User> getContacts() {
+        mQuery = ParseQuery.getQuery("Dude");
+        mAppUsers = new ArrayList<>();
+        ContentResolver cr = mContext.getContentResolver();
         Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
@@ -66,21 +71,20 @@ public class GenerateUser {
 
             } while (cursor.moveToNext());
         }
-
+        return  mAppUsers;
     }
 
     public void contactParseChecker(String phoneNum) {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Dude");
-        final List<User> appUsers = new ArrayList<>();
-        query.whereEqualTo("phone", phoneNum.replaceAll("[\\D]", ""));
-        query.findInBackground(new FindCallback<ParseObject>() {
+
+        mQuery.whereEqualTo("phone", phoneNum.replaceAll("[\\D]", ""));
+        mQuery.findInBackground(new FindCallback<ParseObject>() {
             // if there maching use in database crate new user
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
 
                 if (e == null) {
                     for (ParseObject usersObject : objects) {
-                        appUsers.add(new User(usersObject.getString("name"),
+                        mAppUsers.add(new User(usersObject.getString("name"),
                                 usersObject.getString("phone")));
                     }
                 }

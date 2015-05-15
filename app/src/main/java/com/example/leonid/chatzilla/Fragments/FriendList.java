@@ -28,13 +28,13 @@ import android.view.ViewGroup;
 /**
  * Created by Leo on 5/11/2015.
  */
-public class ContactsList extends Fragment {
+public class FriendList extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        final View rootView = inflater.inflate(R.layout.contracts_fragment, container, false);
+        final View rootView = inflater.inflate(R.layout.friends_fragment, container, false);
         NetworkCheck networkCheck = new NetworkCheck(getActivity());
 
         return rootView;
