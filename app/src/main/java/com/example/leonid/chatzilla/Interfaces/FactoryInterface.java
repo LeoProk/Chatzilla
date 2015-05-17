@@ -16,10 +16,10 @@
 package com.example.leonid.chatzilla.Interfaces;
 
 /**
- * default interface for UI elements (toolbar, drawer , ect...)
+ * default factory interface
  */
 
-public interface UIInterface {
+public interface FactoryInterface {
 
     Object doTask();
 }

@@ -15,28 +15,32 @@
  */
 package com.example.leonid.chatzilla.UserInterface;
 
-import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
+// a Bean Class RowItem which is used for setting and getting row data's of each items in ListView ( icons and titles).
 
-import android.content.Context;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
-import android.widget.ListView;
+public class RowItem {
 
-/**
- * Factory for tollbar and drawer
- */
-public class UIFactory {
+    private String title;
 
+    private int icon;
 
-    public static FactoryInterface getToolbar(Context context, Toolbar toolbar) {
-        return new CustomToolbar(context, toolbar);
+    public RowItem(String title, int icon) {
+        this.title = title;
+        this.icon = icon;
     }
 
-    public static FactoryInterface getDrawer(Context context, DrawerLayout mDrawerLayout,
-            ListView mDrawerList) {
-        return new CustomDrawer(context, mDrawerLayout, mDrawerList);
+    public String getTitle() {
+        return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
+    }
 }
-
-

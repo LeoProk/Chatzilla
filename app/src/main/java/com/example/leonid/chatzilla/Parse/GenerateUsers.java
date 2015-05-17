@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package com.example.leonid.chatzilla;
+package com.example.leonid.chatzilla.Parse;
 
 
+import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
+import com.example.leonid.chatzilla.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -33,19 +35,21 @@ import java.util.List;
 /**
  * Created by Leo on 5/11/2015.
  */
-public class GenerateUser {
+public class GenerateUsers implements FactoryInterface {
 
     Context mContext;
-    List<User>  mAppUsers;
+
+    List<User> mAppUsers;
+
     ParseQuery<ParseObject> mQuery;
 
-    public GenerateUser(Context context) {
+    public GenerateUsers(Context context) {
         mContext = context;
     }
 
-
     // get the phone number of all phone contacts
-    public List<User> getContacts() {
+    @Override
+    public Object doTask() {
         mQuery = ParseQuery.getQuery("Dude");
         mAppUsers = new ArrayList<>();
         ContentResolver cr = mContext.getContentResolver();
@@ -71,7 +75,7 @@ public class GenerateUser {
 
             } while (cursor.moveToNext());
         }
-        return  mAppUsers;
+        return mAppUsers;
     }
 
     public void contactParseChecker(String phoneNum) {
@@ -93,4 +97,6 @@ public class GenerateUser {
         });
 
     }
+
+
 }

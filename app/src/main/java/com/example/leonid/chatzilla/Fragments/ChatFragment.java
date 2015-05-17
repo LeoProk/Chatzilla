@@ -13,34 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.leonid.chatzilla.UserInterface.Drawer;
 
-// a Bean Class RowItem which is used for setting and getting row data's of each items in ListView ( icons and titles).
+package com.example.leonid.chatzilla.Fragments;
 
-public class RowItem {
+import com.example.leonid.chatzilla.R;
 
-    private String title;
+import android.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-    private int icon;
 
-    public RowItem(String title, int icon) {
-        this.title = title;
-        this.icon = icon;
+public class ChatFragment extends Fragment {
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+
+        final View rootView = inflater.inflate(R.layout.fragment_chat, container, false);
+
+        return rootView;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getIcon() {
-        return icon;
-    }
-
-    public void setIcon(int icon) {
-        this.icon = icon;
-    }
 }

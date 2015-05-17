@@ -23,9 +23,13 @@ import android.app.Application;
 import java.util.List;
 
 /**
- * Created by Leo on 5/11/2015.
+ * Application class, initialize parse with app info.
  */
 public class AppController extends Application {
+
+    public static String mPhoneNum;
+
+    public static String mFriendName;
 
     private List<User> mFriends;
 

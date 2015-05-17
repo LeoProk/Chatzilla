@@ -17,9 +17,10 @@
 
 package com.example.leonid.chatzilla;
 
+import com.example.leonid.chatzilla.Fragments.ChatFragment;
 import com.example.leonid.chatzilla.Fragments.FriendList;
 import com.example.leonid.chatzilla.Fragments.SignIn;
-import com.example.leonid.chatzilla.Interfaces.UIInterface;
+import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
 import com.example.leonid.chatzilla.UserInterface.UIFactory;
 import com.parse.ParseUser;
 
@@ -44,25 +45,33 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         //create the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        UIInterface getToolbar = UIFactory.getUI(this, toolbar);
+        FactoryInterface getToolbar = UIFactory.getToolbar(this, toolbar);
         getToolbar.doTask();
         //create the drawer
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         ListView mDrawerList = (ListView) findViewById(R.id.slider_list);
-        UIInterface getDrawer = UIFactory.getUI(this, mDrawerLayout, mDrawerList);
+        FactoryInterface getDrawer = UIFactory.getDrawer(this, mDrawerLayout, mDrawerList);
         mDrawerToggle = (ActionBarDrawerToggle) getDrawer.doTask();
-        GenerateUser generateUser = new GenerateUser(this);
-        generateUser.getContacts();
+        Bundle bundle = getIntent().getExtras();
         if (ParseUser.getCurrentUser() == null) {
             Fragment fragment = new SignIn();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter")
-                    .addToBackStack("twitter").commit();
+                    .addToBackStack("chatzilla").commit();
         } else {
-            Fragment fragment = new FriendList();
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter")
-                    .addToBackStack("twitter").commit();
+            if (getIntent().hasExtra("friendName")) {
+                AppController.mFriendName = bundle.getString("friendName");
+                AppController.mPhoneNum = bundle.getString("phoneNum");
+                Fragment fragment = new ChatFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter")
+                        .addToBackStack("chatzilla").commit();
+            } else {
+                Fragment fragment = new FriendList();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter")
+                        .addToBackStack("chatzilla").commit();
+            }
         }
     }
 

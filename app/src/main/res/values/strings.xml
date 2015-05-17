@@ -7,4 +7,6 @@
     <string name="no_connection"> No internet connections available</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

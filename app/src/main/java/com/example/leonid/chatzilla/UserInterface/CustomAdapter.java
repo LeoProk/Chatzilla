@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.leonid.chatzilla.UserInterface.Drawer;
+package com.example.leonid.chatzilla.UserInterface;
 
 /**
  * Custom adapter which extends BaseAdapter , this is used for inflating each row items of the listview .
@@ -32,7 +32,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CustomAdapter extends BaseAdapter {
+final class CustomAdapter extends BaseAdapter {
 
     Context context;
 
