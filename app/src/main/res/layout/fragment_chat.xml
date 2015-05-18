@@ -1,6 +1,48 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+             android:orientation="vertical"
              tools:context="com.example.leonid.chatzilla.Fragments.ChatFragment">
-</FrameLayout>
+    <ScrollView
+            android:id="@+id/chat_ScrollView"
+            android:layout_width="fill_parent"
+            android:layout_height="407dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1.21" >
+
+        <TextView
+                android:id="@+id/chatHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.14" />
+    </ScrollView>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="53dp" >
+
+        <EditText
+                android:id="@+id/input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignTop="@+id/send"
+                android:layout_toLeftOf="@+id/send"
+                android:ems="10"
+                android:inputType="textMultiLine" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="Button" />
+    </RelativeLayout>
+</LinearLayout>

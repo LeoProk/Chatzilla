@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.example.leonid.chatzilla;
+package com.example.leonid.chatzilla.Parse;
 
 /**
- * Created by Leo on 5/11/2015.
+ * User contain name and phone
  */
-public class User {
+    public class User {
 
     private String mName;
 
     private String mPhone;
 
-    public User(String name, String phone) {
+    public   User(String name, String phone) {
         mName = name;
         mPhone = phone;
 

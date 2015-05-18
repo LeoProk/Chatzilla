@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-package com.example.leonid.chatzilla;
+package com.example.leonid.chatzilla.Utilities;
+
+import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
+import com.example.leonid.chatzilla.R;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -24,26 +27,26 @@ import android.widget.Toast;
 /**
  * Checks if network connection avaliable  and if not show toast message
  */
-public class NetworkCheck {
+final class NetworkCheck implements FactoryInterface{
 
-    Context context;
+    Context mContext;
 
     public NetworkCheck(Context context) {
-        this.context = context;
+        mContext = context;
     }
 
     // Checks if network connection avaliable  and if not show toast message
-    public boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) context
+    @Override
+    public Object doTask() {
+        ConnectivityManager cm = (ConnectivityManager) mContext
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
         if (ni == null) {
-            Toast.makeText(context, context.getResources().getString(R.string.no_connection),
+            Toast.makeText(mContext, mContext.getResources().getString(R.string.no_connection),
                     Toast.LENGTH_LONG).show();
             return false;
         } else {
             return true;
         }
-
     }
 }

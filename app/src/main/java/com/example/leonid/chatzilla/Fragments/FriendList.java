@@ -16,10 +16,9 @@
 
 package com.example.leonid.chatzilla.Fragments;
 
-import com.example.leonid.chatzilla.NetworkCheck;
 import com.example.leonid.chatzilla.Parse.ParseFactory;
 import com.example.leonid.chatzilla.R;
-import com.example.leonid.chatzilla.User;
+import com.example.leonid.chatzilla.Parse.User;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -49,7 +48,6 @@ public class FriendList extends Fragment {
         ArrayAdapter<User> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, users);
         friendsList.setAdapter(adapter);
-        NetworkCheck networkCheck = new NetworkCheck(getActivity());
 
         return rootView;
     }

@@ -16,6 +16,7 @@
 
 package com.example.leonid.chatzilla;
 
+
 import com.parse.Parse;
 
 import android.app.Application;
@@ -30,8 +31,6 @@ public class AppController extends Application {
     public static String mPhoneNum;
 
     public static String mFriendName;
-
-    private List<User> mFriends;
 
     @Override
     public void onCreate() {

@@ -20,9 +20,13 @@ import com.example.leonid.chatzilla.R;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 
 public class ChatFragment extends Fragment {
@@ -32,8 +36,17 @@ public class ChatFragment extends Fragment {
             Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fragment_chat, container, false);
-
+        final TextView textView = (TextView)  rootView.findViewById(R.id.chatHistory);
+        textView.setMovementMethod(new ScrollingMovementMethod());
+        final Button button = (Button)  rootView.findViewById(R.id.send);
+        final ScrollView scrollview = ((ScrollView)  rootView.findViewById(R.id.chat_ScrollView));
+        scrollview.fullScroll(ScrollView.FOCUS_DOWN);
         return rootView;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
 }

@@ -37,7 +37,7 @@ import android.widget.ListView;
 
 public class MainActivity extends ActionBarActivity {
 
-    ActionBarDrawerToggle mDrawerToggle;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

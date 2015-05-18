@@ -18,7 +18,6 @@ package com.example.leonid.chatzilla.Parse;
 
 
 import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
-import com.example.leonid.chatzilla.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -35,13 +34,13 @@ import java.util.List;
 /**
  * Created by Leo on 5/11/2015.
  */
-public class GenerateUsers implements FactoryInterface {
+final class GenerateUsers implements FactoryInterface {
 
-    Context mContext;
+    private Context mContext;
 
-    List<User> mAppUsers;
+    private List<User> mAppUsers;
 
-    ParseQuery<ParseObject> mQuery;
+    private ParseQuery<ParseObject> mQuery;
 
     public GenerateUsers(Context context) {
         mContext = context;
@@ -78,7 +77,7 @@ public class GenerateUsers implements FactoryInterface {
         return mAppUsers;
     }
 
-    public void contactParseChecker(String phoneNum) {
+    final void contactParseChecker(String phoneNum) {
 
         mQuery.whereEqualTo("phone", phoneNum.replaceAll("[\\D]", ""));
         mQuery.findInBackground(new FindCallback<ParseObject>() {
