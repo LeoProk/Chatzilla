@@ -14,4 +14,7 @@ public class UtilitiesFactory {
     public static FactoryInterface getFile(Context context,String filename) {
         return new FileGetter(context,filename);
     }
+    public static FactoryInterface saveFile(Context context,String filename,String message) {
+        return new SaveFile(context,filename,message);
+    }
 }

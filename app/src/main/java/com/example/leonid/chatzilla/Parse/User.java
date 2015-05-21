@@ -17,7 +17,7 @@
 package com.example.leonid.chatzilla.Parse;
 
 /**
- * User contain name and phone
+ * User contains name and phone of new user
  */
     public class User {
 
@@ -30,4 +30,12 @@ package com.example.leonid.chatzilla.Parse;
         mPhone = phone;
 
     }
+    public String getName(){
+        return mName;
+    }
+
+    public String getPhone(){
+        return mPhone;
+    }
+
 }

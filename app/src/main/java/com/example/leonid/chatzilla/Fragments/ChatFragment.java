@@ -16,7 +16,9 @@
 
 package com.example.leonid.chatzilla.Fragments;
 
+import com.example.leonid.chatzilla.AppController;
 import com.example.leonid.chatzilla.R;
+import com.example.leonid.chatzilla.Utilities.UtilitiesFactory;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -31,22 +33,44 @@ import android.widget.TextView;
 
 public class ChatFragment extends Fragment {
 
+    public static ChatFragment mThis = null;
+    private TextView mTextView;
+    private ScrollView mScrollView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fragment_chat, container, false);
-        final TextView textView = (TextView)  rootView.findViewById(R.id.chatHistory);
-        textView.setMovementMethod(new ScrollingMovementMethod());
+        mTextView = (TextView)  rootView.findViewById(R.id.chatHistory);
+        mTextView.setMovementMethod(new ScrollingMovementMethod());
         final Button button = (Button)  rootView.findViewById(R.id.send);
-        final ScrollView scrollview = ((ScrollView)  rootView.findViewById(R.id.chat_ScrollView));
-        scrollview.fullScroll(ScrollView.FOCUS_DOWN);
+        mScrollView = ((ScrollView)  rootView.findViewById(R.id.chat_ScrollView));
+        mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
         return rootView;
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        mTextView.setText((String)UtilitiesFactory.getFile(getActivity(), AppController.mPhoneNum).doTask());
+        mScrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
 
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        mThis = this;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mThis = null;
     }
 }

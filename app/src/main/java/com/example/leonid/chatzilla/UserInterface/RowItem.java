@@ -17,7 +17,7 @@ package com.example.leonid.chatzilla.UserInterface;
 
 // a Bean Class RowItem which is used for setting and getting row data's of each items in ListView ( icons and titles).
 
-public class RowItem {
+ final class RowItem {
 
     private String title;
 

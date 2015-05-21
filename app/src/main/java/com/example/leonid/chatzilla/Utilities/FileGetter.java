@@ -9,7 +9,7 @@ import java.io.FileInputStream;
 /**
  * Retrieve file from internal storage by name;
  */
-public class FileGetter implements FactoryInterface {
+final class FileGetter implements FactoryInterface {
     private String mFileName;
     private Context mContext;
 
