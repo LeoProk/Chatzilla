@@ -19,22 +19,23 @@ package com.example.leonid.chatzilla.Parse;
 /**
  * User contains name and phone of new user
  */
-    public class User {
+public class User {
 
     private String mName;
 
     private String mPhone;
 
-    public   User(String name, String phone) {
+    public User(String name, String phone) {
         mName = name;
         mPhone = phone;
 
     }
-    public String getName(){
+
+    public String getName() {
         return mName;
     }
 
-    public String getPhone(){
+    public String getPhone() {
         return mPhone;
     }
 

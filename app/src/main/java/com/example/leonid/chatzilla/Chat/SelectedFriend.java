@@ -13,26 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.leonid.chatzilla.UserInterface;
 
-// a Bean Class RowItem which is used for setting and getting row data's of each items in ListView ( icons and titles).
+package com.example.leonid.chatzilla.Chat;
 
-final class RowItem {
+import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
 
-    private String title;
+/**
+ * Created by Leo on 5/22/2015.
+ */
+public class SelectedFriend implements FactoryInterface {
 
-    private int icon;
-
-    public RowItem(String title, int icon) {
-        this.title = title;
-        this.icon = icon;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public int getIcon() {
-        return icon;
+    @Override
+    public Object doTask() {
+        return null;
     }
 }

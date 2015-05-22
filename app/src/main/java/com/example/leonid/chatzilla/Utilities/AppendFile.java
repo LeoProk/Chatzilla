@@ -8,9 +8,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Save new file to internal storage
+ * Appends file to internal storage.
  */
-final class SaveFile implements FactoryInterface {
+final class AppendFile implements FactoryInterface {
 
     private Context mContext;
 
@@ -18,7 +18,7 @@ final class SaveFile implements FactoryInterface {
 
     private String mMessage;
 
-    public SaveFile(Context context, String filename, String message) {
+    public AppendFile(Context context, String filename, String message) {
         mContext = context;
         mFilename = filename;
         mMessage = message;
@@ -32,7 +32,7 @@ final class SaveFile implements FactoryInterface {
             public void run() {
                 try {
                     FileOutputStream outputStream = mContext
-                            .openFileOutput(mFilename, Context.MODE_PRIVATE);
+                            .openFileOutput(mFilename, Context.MODE_APPEND);
                     outputStream.write(mMessage.getBytes());
                     outputStream.close();
                 } catch (IOException e) {

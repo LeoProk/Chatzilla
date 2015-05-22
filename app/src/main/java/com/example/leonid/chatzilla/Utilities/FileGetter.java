@@ -5,19 +5,23 @@ import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
 import android.content.Context;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * Retrieve file from internal storage by name;
  */
 final class FileGetter implements FactoryInterface {
+
     private String mFileName;
+
     private Context mContext;
 
-    public FileGetter(Context context,String fileName){
+    public FileGetter(Context context, String fileName) {
 
         mContext = context;
         mFileName = fileName;
     }
+
     @Override
     public Object doTask() {
         String temp = "";
@@ -31,8 +35,8 @@ final class FileGetter implements FactoryInterface {
             //string temp contains all the data of the file.
             inputStream.close();
 
-        } catch (Exception e) {
-
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return temp;
     }

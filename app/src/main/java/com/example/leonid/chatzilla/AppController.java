@@ -21,8 +21,6 @@ import com.parse.Parse;
 
 import android.app.Application;
 
-import java.util.List;
-
 /**
  * Application class, initialize parse with app info.
  */

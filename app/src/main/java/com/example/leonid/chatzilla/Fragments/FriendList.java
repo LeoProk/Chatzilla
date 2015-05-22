@@ -17,14 +17,15 @@
 package com.example.leonid.chatzilla.Fragments;
 
 import com.example.leonid.chatzilla.Parse.ParseFactory;
-import com.example.leonid.chatzilla.R;
 import com.example.leonid.chatzilla.Parse.User;
+import com.example.leonid.chatzilla.R;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -48,6 +49,17 @@ public class FriendList extends Fragment {
         ArrayAdapter<User> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, users);
         friendsList.setAdapter(adapter);
+        friendsList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         return rootView;
     }

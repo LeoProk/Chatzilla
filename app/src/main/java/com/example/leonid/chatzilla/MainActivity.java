@@ -19,7 +19,7 @@ package com.example.leonid.chatzilla;
 
 import com.example.leonid.chatzilla.Fragments.ChatFragment;
 import com.example.leonid.chatzilla.Fragments.FriendList;
-import com.example.leonid.chatzilla.Fragments.SignIn;
+import com.example.leonid.chatzilla.Fragments.LogIn;
 import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
 import com.example.leonid.chatzilla.UserInterface.UIFactory;
 import com.parse.ParseUser;
@@ -54,7 +54,7 @@ public class MainActivity extends ActionBarActivity {
         mDrawerToggle = (ActionBarDrawerToggle) getDrawer.doTask();
         Bundle bundle = getIntent().getExtras();
         if (ParseUser.getCurrentUser() == null) {
-            Fragment fragment = new SignIn();
+            Fragment fragment = new LogIn();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter")
                     .addToBackStack("chatzilla").commit();

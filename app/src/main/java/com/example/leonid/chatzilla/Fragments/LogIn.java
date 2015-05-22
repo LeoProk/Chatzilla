@@ -16,18 +16,22 @@
 
 package com.example.leonid.chatzilla.Fragments;
 
+import com.example.leonid.chatzilla.Parse.ParseFactory;
 import com.example.leonid.chatzilla.R;
+import com.example.leonid.chatzilla.Utilities.UtilitiesFactory;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 /**
- * Created by Leo on 5/11/2015.
+ * Log in fragment users name and phone number to create new user.
  */
-public class SignIn extends Fragment {
+public class LogIn extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +40,19 @@ public class SignIn extends Fragment {
         final View rootView = inflater.inflate(R.layout.login_fragment, container, false);
         //set picture as background
         rootView.setBackground(getResources().getDrawable(R.drawable.login_zilla));
-
+        final EditText name = (EditText) rootView.findViewById(R.id.name);
+        final EditText phone = (EditText) rootView.findViewById(R.id.phone);
+        final Button logIn = (Button) rootView.findViewById(R.id.log_in);
+        logIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseFactory.createUser(getActivity(), name, phone).doTask();
+                UtilitiesFactory.saveFile(getActivity(), "name", name.getText().toString())
+                        .doTask();
+                UtilitiesFactory.saveFile(getActivity(), "phone", phone.getText().toString())
+                        .doTask();
+            }
+        });
         return rootView;
     }
 }

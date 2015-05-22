@@ -27,7 +27,7 @@ import android.widget.Toast;
 /**
  * Checks if network connection avaliable  and if not show toast message
  */
-final class NetworkCheck implements FactoryInterface{
+final class NetworkCheck implements FactoryInterface {
 
     Context mContext;
 

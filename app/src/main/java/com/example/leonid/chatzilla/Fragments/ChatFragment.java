@@ -17,6 +17,7 @@
 package com.example.leonid.chatzilla.Fragments;
 
 import com.example.leonid.chatzilla.AppController;
+import com.example.leonid.chatzilla.Chat.ChatFactory;
 import com.example.leonid.chatzilla.R;
 import com.example.leonid.chatzilla.Utilities.UtilitiesFactory;
 
@@ -27,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -34,7 +36,9 @@ import android.widget.TextView;
 public class ChatFragment extends Fragment {
 
     public static ChatFragment mThis = null;
+
     private TextView mTextView;
+
     private ScrollView mScrollView;
 
     @Override
@@ -42,18 +46,28 @@ public class ChatFragment extends Fragment {
             Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fragment_chat, container, false);
-        mTextView = (TextView)  rootView.findViewById(R.id.chatHistory);
+        mTextView = (TextView) rootView.findViewById(R.id.chatHistory);
         mTextView.setMovementMethod(new ScrollingMovementMethod());
-        final Button button = (Button)  rootView.findViewById(R.id.send);
-        mScrollView = ((ScrollView)  rootView.findViewById(R.id.chat_ScrollView));
+        mScrollView = ((ScrollView) rootView.findViewById(R.id.chat_ScrollView));
         mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+        final EditText editText = (EditText) rootView.findViewById(R.id.input);
+        final Button button = (Button) rootView.findViewById(R.id.send);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChatFactory.createMessage(getActivity(), editText, mTextView).doTask();
+                UtilitiesFactory.appendFile(getActivity(), AppController.mPhoneNum,
+                        "\n" + "Me:" + "\n" + editText.getText().toString()).doTask();
+            }
+        });
         return rootView;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        mTextView.setText((String)UtilitiesFactory.getFile(getActivity(), AppController.mPhoneNum).doTask());
+        mTextView.setText(
+                (String) UtilitiesFactory.getFile(getActivity(), AppController.mPhoneNum).doTask());
         mScrollView.post(new Runnable() {
             @Override
             public void run() {
@@ -62,6 +76,7 @@ public class ChatFragment extends Fragment {
         });
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
