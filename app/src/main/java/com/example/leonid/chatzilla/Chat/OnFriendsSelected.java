@@ -16,15 +16,32 @@
 
 package com.example.leonid.chatzilla.Chat;
 
+import com.example.leonid.chatzilla.AppController;
 import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
+import android.widget.ListView;
 
 /**
- * Created by Leo on 5/22/2015.
+ *
  */
-public class SelectedFriend implements FactoryInterface {
+final class OnFriendsSelected implements FactoryInterface {
+
+    private int mPosition;
+
+    private ListView mListView;
+
+    OnFriendsSelected(int position,ListView listView){
+        mPosition = position;
+        mListView = listView;
+    }
 
     @Override
     public Object doTask() {
+        String selectedFromList = (mListView.getItemAtPosition(mPosition).toString());
+        String finalNum = selectedFromList.replaceAll("[^\\d.]", "");
+        String unfilteredNum = selectedFromList.replaceAll(" ", "");
+        String finalName = unfilteredNum.replaceAll("([0-9])", "");
+        AppController.mFriendName = finalName;
+        AppController.mPhoneNum = finalNum;
         return null;
     }
 }

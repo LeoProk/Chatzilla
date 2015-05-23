@@ -16,6 +16,7 @@
 
 package com.example.leonid.chatzilla.Fragments;
 
+import com.example.leonid.chatzilla.Chat.ChatFactory;
 import com.example.leonid.chatzilla.Parse.ParseFactory;
 import com.example.leonid.chatzilla.Parse.User;
 import com.example.leonid.chatzilla.R;
@@ -43,6 +44,7 @@ public class FriendList extends Fragment {
             Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.friends_fragment, container, false);
+        rootView.setBackground(getResources().getDrawable(R.drawable.godzilla_main));
         //sets adapter to list view with contacts that march the parse user datebase
         final ListView friendsList = (ListView) rootView.findViewById(R.id.friendsList);
         final List<User> users = (ArrayList<User>) ParseFactory.getContacts(getActivity()).doTask();
@@ -52,7 +54,7 @@ public class FriendList extends Fragment {
         friendsList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                ChatFactory.onFriendSelected(position,friendsList).doTask();
             }
 
             @Override

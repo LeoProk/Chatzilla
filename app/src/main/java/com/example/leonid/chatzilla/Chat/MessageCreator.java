@@ -33,7 +33,7 @@ import android.widget.TextView;
 /**
  * Create new JSONObject message and saves it in parse.
  */
-public class MessageCreator implements FactoryInterface {
+final class MessageCreator implements FactoryInterface {
 
     private EditText mMessage;
 
