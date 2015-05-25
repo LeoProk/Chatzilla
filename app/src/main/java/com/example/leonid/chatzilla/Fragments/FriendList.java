@@ -22,7 +22,9 @@ import com.example.leonid.chatzilla.Parse.User;
 import com.example.leonid.chatzilla.R;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +57,10 @@ public class FriendList extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ChatFactory.onFriendSelected(position,friendsList).doTask();
+                Fragment fragment = new ChatFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter")
+                        .addToBackStack("chatzilla").commit();
             }
 
             @Override

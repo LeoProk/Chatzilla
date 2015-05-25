@@ -21,6 +21,7 @@ import com.example.leonid.chatzilla.R;
 import com.example.leonid.chatzilla.Utilities.UtilitiesFactory;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,11 @@ public class LogIn extends Fragment {
                         .doTask();
                 UtilitiesFactory.saveFile(getActivity(), "phone", phone.getText().toString())
                         .doTask();
+                Fragment fragment = new FriendList();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frame_container, fragment,
+                        "twitter")
+                        .addToBackStack("chatzilla").commit();
             }
         });
         return rootView;

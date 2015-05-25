@@ -27,20 +27,23 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Leo on 5/11/2015.
+ * Gets all numbers in contacts list. And check if any number  much user number in parse datebase
  */
 final class GenerateUsers implements FactoryInterface {
+
+    List<String> mMatchingContacts;
 
     private Context mContext;
 
     private List<User> mAppUsers;
 
-    private ParseQuery<ParseObject> mQuery;
+    private int numOfContacts;
 
     public GenerateUsers(Context context) {
         mContext = context;
@@ -49,10 +52,11 @@ final class GenerateUsers implements FactoryInterface {
     // get the phone number of all phone contacts
     @Override
     public Object doTask() {
-        mQuery = ParseQuery.getQuery("Dude");
         mAppUsers = new ArrayList<>();
-        ContentResolver cr = mContext.getContentResolver();
-        Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+        mMatchingContacts = new ArrayList<>();
+        final ContentResolver cr = mContext.getContentResolver();
+        final Cursor cursor = cr
+                .query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
@@ -66,7 +70,7 @@ final class GenerateUsers implements FactoryInterface {
                         //final contact number is added to array list
                         String contactNumber = pCur.getString(
                                 pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        contactParseChecker(contactNumber);
+                        mMatchingContacts.add(contactNumber);
                         break;
                     }
                     pCur.close();
@@ -74,22 +78,37 @@ final class GenerateUsers implements FactoryInterface {
 
             } while (cursor.moveToNext());
         }
-        return mAppUsers;
+
+        numOfContacts = 0;
+        if (numOfContacts == mMatchingContacts.size()) {
+            return mAppUsers;
+        } else {
+            return false;
+        }
     }
 
-    final void contactParseChecker(String phoneNum) {
+    final void queryNewUser() {
+        final ParseQuery query = ParseQuery.getQuery("Dude");
+        contactParseChecker(mMatchingContacts.get(numOfContacts), query);
+    }
 
-        mQuery.whereEqualTo("phone", phoneNum.replaceAll("[\\D]", ""));
-        mQuery.findInBackground(new FindCallback<ParseObject>() {
+    final void contactParseChecker(String phoneNum, final ParseQuery query) {
+        numOfContacts++;
+        query.whereEqualTo("phone", phoneNum.replaceAll("[\\D]", ""));
+        query.findInBackground(new FindCallback<ParseObject>() {
             // if there maching use in database crate new user
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
 
                 if (e == null) {
                     for (ParseObject usersObject : objects) {
+                        Log.e(usersObject.getString("name"), usersObject.getString("phone"));
                         mAppUsers.add(new User(usersObject.getString("name"),
                                 usersObject.getString("phone")));
+                        queryNewUser();
                     }
+                } else {
+                    queryNewUser();
                 }
 
             }

@@ -31,12 +31,10 @@ public class User {
 
     }
 
-    public String getName() {
-        return mName;
+    @Override
+    public String toString() {
+        return mName + System.getProperty("line.separator") + mPhone ;
     }
 
-    public String getPhone() {
-        return mPhone;
-    }
 
 }
