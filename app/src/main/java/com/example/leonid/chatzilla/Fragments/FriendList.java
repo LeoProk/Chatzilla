@@ -18,22 +18,17 @@ package com.example.leonid.chatzilla.Fragments;
 
 import com.example.leonid.chatzilla.Chat.ChatFactory;
 import com.example.leonid.chatzilla.Parse.ParseFactory;
-import com.example.leonid.chatzilla.Parse.User;
 import com.example.leonid.chatzilla.R;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Fragment of friend list with list view that hold users that both in phone contact list and app
@@ -46,25 +41,20 @@ public class FriendList extends Fragment {
             Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.friends_fragment, container, false);
-        rootView.setBackground(getResources().getDrawable(R.drawable.godzilla_main));
+        rootView.setBackground(getResources().getDrawable(R.drawable.godzilla_chat));
         //sets adapter to list view with contacts that march the parse user datebase
         final ListView friendsList = (ListView) rootView.findViewById(R.id.friendsList);
-        final List<User> users = (ArrayList<User>) ParseFactory.getContacts(getActivity()).doTask();
-        ArrayAdapter<User> adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, users);
-        friendsList.setAdapter(adapter);
-        friendsList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ParseFactory.getUserList(getActivity(), friendsList).doTask();
+        friendsList.setOnItemClickListener(new OnItemClickListener() {
+
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ChatFactory.onFriendSelected(position,friendsList).doTask();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                ChatFactory.onFriendSelected(position, friendsList).doTask();
                 Fragment fragment = new ChatFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter")
                         .addToBackStack("chatzilla").commit();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });

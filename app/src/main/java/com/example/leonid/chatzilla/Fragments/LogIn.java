@@ -21,7 +21,6 @@ import com.example.leonid.chatzilla.R;
 import com.example.leonid.chatzilla.Utilities.UtilitiesFactory;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,16 +46,13 @@ public class LogIn extends Fragment {
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ParseFactory.createUser(getActivity(), name, phone).doTask();
+                if ((boolean) UtilitiesFactory.checkNetwork(getActivity()).doTask()) {
+                    ParseFactory.createUser(getActivity(), name, phone).doTask();
+                }
                 UtilitiesFactory.saveFile(getActivity(), "name", name.getText().toString())
                         .doTask();
                 UtilitiesFactory.saveFile(getActivity(), "phone", phone.getText().toString())
                         .doTask();
-                Fragment fragment = new FriendList();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.frame_container, fragment,
-                        "twitter")
-                        .addToBackStack("chatzilla").commit();
             }
         });
         return rootView;

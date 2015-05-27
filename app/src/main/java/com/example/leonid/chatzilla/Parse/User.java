@@ -33,7 +33,7 @@ public class User {
 
     @Override
     public String toString() {
-        return mName + System.getProperty("line.separator") + mPhone ;
+        return mName + System.getProperty("line.separator") + mPhone;
     }
 
 

@@ -28,25 +28,33 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Gets all numbers in contacts list. And check if any number  much user number in parse datebase
+ * and populates list view with them.
  */
-final class GenerateUsers implements FactoryInterface {
+final class ListViewCreator implements FactoryInterface {
 
-    List<String> mMatchingContacts;
+    private List<String> mMatchingContacts;
 
     private Context mContext;
 
     private List<User> mAppUsers;
 
+    private ListView mFriendList;
+
     private int numOfContacts;
 
-    public GenerateUsers(Context context) {
+    private ParseQuery mQuery;
+
+    public ListViewCreator(Context context, ListView friendList) {
         mContext = context;
+        mFriendList = friendList;
     }
 
     // get the phone number of all phone contacts
@@ -80,39 +88,48 @@ final class GenerateUsers implements FactoryInterface {
         }
 
         numOfContacts = 0;
-        if (numOfContacts == mMatchingContacts.size()) {
-            return mAppUsers;
-        } else {
-            return false;
-        }
+        mQuery = ParseQuery.getQuery("Dude");
+        contactParseChecker(mMatchingContacts.get(numOfContacts));
+
+        return false;
     }
 
     final void queryNewUser() {
-        final ParseQuery query = ParseQuery.getQuery("Dude");
-        contactParseChecker(mMatchingContacts.get(numOfContacts), query);
+        if (numOfContacts != mMatchingContacts.size()) {
+            contactParseChecker(mMatchingContacts.get(numOfContacts));
+        }else {
+            //Populate list view after getting all values
+            ArrayAdapter<User> adapter = new ArrayAdapter<>(mContext,
+                    android.R.layout.simple_list_item_1, mAppUsers);
+            mFriendList.setAdapter(adapter);
+        }
     }
 
-    final void contactParseChecker(String phoneNum, final ParseQuery query) {
+    final void contactParseChecker(String phoneNum) {
+
         numOfContacts++;
-        query.whereEqualTo("phone", phoneNum.replaceAll("[\\D]", ""));
-        query.findInBackground(new FindCallback<ParseObject>() {
+        mQuery.whereEqualTo("phone", phoneNum.replaceAll("[\\D]", ""));
+        Log.e("Sleep", phoneNum.replaceAll("[\\D]", ""));
+        mQuery.findInBackground(new FindCallback<ParseObject>() {
             // if there maching use in database crate new user
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
-
                 if (e == null) {
                     for (ParseObject usersObject : objects) {
                         Log.e(usersObject.getString("name"), usersObject.getString("phone"));
                         mAppUsers.add(new User(usersObject.getString("name"),
                                 usersObject.getString("phone")));
-                        queryNewUser();
+
+
                     }
+                    queryNewUser();
                 } else {
                     queryNewUser();
                 }
 
             }
         });
+
 
     }
 
