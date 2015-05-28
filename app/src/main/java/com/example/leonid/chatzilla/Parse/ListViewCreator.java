@@ -18,6 +18,8 @@ package com.example.leonid.chatzilla.Parse;
 
 
 import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
+import com.example.leonid.chatzilla.R;
+import com.example.leonid.chatzilla.Utilities.UtilitiesFactory;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -30,6 +32,7 @@ import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +92,13 @@ final class ListViewCreator implements FactoryInterface {
 
         numOfContacts = 0;
         mQuery = ParseQuery.getQuery("Dude");
-        contactParseChecker(mMatchingContacts.get(numOfContacts));
+        if(mMatchingContacts.isEmpty()){
+            Toast.makeText(mContext,"Your contacts list is empty !",
+                    Toast.LENGTH_LONG).show();
+        }else {
+            contactParseChecker(mMatchingContacts.get(numOfContacts));
+        }
+
 
         return false;
     }
@@ -97,10 +106,11 @@ final class ListViewCreator implements FactoryInterface {
     final void queryNewUser() {
         if (numOfContacts != mMatchingContacts.size()) {
             contactParseChecker(mMatchingContacts.get(numOfContacts));
-        }else {
+        } else {
             //Populate list view after getting all values
             ArrayAdapter<User> adapter = new ArrayAdapter<>(mContext,
                     android.R.layout.simple_list_item_1, mAppUsers);
+            UtilitiesFactory.saveSQL(mContext,mAppUsers);
             mFriendList.setAdapter(adapter);
         }
     }
@@ -119,6 +129,7 @@ final class ListViewCreator implements FactoryInterface {
                         Log.e(usersObject.getString("name"), usersObject.getString("phone"));
                         mAppUsers.add(new User(usersObject.getString("name"),
                                 usersObject.getString("phone")));
+
 
 
                     }
