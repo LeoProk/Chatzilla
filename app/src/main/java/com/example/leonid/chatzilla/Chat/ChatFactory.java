@@ -32,8 +32,8 @@ public class ChatFactory {
         return new MessageCreator(context, message, chatWindow);
     }
 
-    public static FactoryInterface onFriendSelected(int position,ListView listView) {
-        return new OnFriendsSelected(position,listView);
+    public static FactoryInterface onFriendSelected(int position, ListView listView) {
+        return new OnFriendsSelected(position, listView);
     }
 
     public static FactoryInterface createNotification(Context context, String title, String message,

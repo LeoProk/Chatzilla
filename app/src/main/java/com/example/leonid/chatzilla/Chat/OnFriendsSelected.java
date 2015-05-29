@@ -18,6 +18,7 @@ package com.example.leonid.chatzilla.Chat;
 
 import com.example.leonid.chatzilla.AppController;
 import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
+
 import android.widget.ListView;
 
 /**
@@ -29,7 +30,7 @@ final class OnFriendsSelected implements FactoryInterface {
 
     private ListView mListView;
 
-    OnFriendsSelected(int position,ListView listView){
+    OnFriendsSelected(int position, ListView listView) {
         mPosition = position;
         mListView = listView;
     }

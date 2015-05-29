@@ -18,7 +18,6 @@ package com.example.leonid.chatzilla.Parse;
 
 
 import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
-import com.example.leonid.chatzilla.R;
 import com.example.leonid.chatzilla.Utilities.UtilitiesFactory;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -92,13 +91,12 @@ final class ListViewCreator implements FactoryInterface {
 
         numOfContacts = 0;
         mQuery = ParseQuery.getQuery("Dude");
-        if(mMatchingContacts.isEmpty()){
-            Toast.makeText(mContext,"Your contacts list is empty !",
+        if (mMatchingContacts.isEmpty()) {
+            Toast.makeText(mContext, "Your contacts list is empty !",
                     Toast.LENGTH_LONG).show();
-        }else {
+        } else {
             contactParseChecker(mMatchingContacts.get(numOfContacts));
         }
-
 
         return false;
     }
@@ -110,7 +108,7 @@ final class ListViewCreator implements FactoryInterface {
             //Populate list view after getting all values
             ArrayAdapter<User> adapter = new ArrayAdapter<>(mContext,
                     android.R.layout.simple_list_item_1, mAppUsers);
-            UtilitiesFactory.saveSQL(mContext,mAppUsers);
+            UtilitiesFactory.saveSQL(mContext, mAppUsers);
             mFriendList.setAdapter(adapter);
         }
     }
@@ -129,7 +127,6 @@ final class ListViewCreator implements FactoryInterface {
                         Log.e(usersObject.getString("name"), usersObject.getString("phone"));
                         mAppUsers.add(new User(usersObject.getString("name"),
                                 usersObject.getString("phone")));
-
 
 
                     }

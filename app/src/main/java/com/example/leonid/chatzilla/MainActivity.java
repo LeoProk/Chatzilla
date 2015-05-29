@@ -26,6 +26,7 @@ import com.parse.ParseUser;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -56,7 +57,7 @@ public class MainActivity extends ActionBarActivity {
         if (ParseUser.getCurrentUser() == null) {
             Fragment fragment = new LogIn();
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter")
+            fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "login")
                     .addToBackStack("chatzilla").commit();
         } else {
             if (getIntent().hasExtra("friendName")) {
@@ -64,12 +65,12 @@ public class MainActivity extends ActionBarActivity {
                 AppController.mPhoneNum = bundle.getString("phoneNum");
                 Fragment fragment = new ChatFragment();
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter")
+                fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "chat")
                         .addToBackStack("chatzilla").commit();
             } else {
                 Fragment fragment = new FriendList();
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter")
+                fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "list")
                         .addToBackStack("chatzilla").commit();
             }
         }
@@ -87,7 +88,20 @@ public class MainActivity extends ActionBarActivity {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
+    @Override
+    public void onBackPressed() {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            if(getFragmentManager().findFragmentByTag("list")!=null) {
+                getFragmentManager().findFragmentByTag("list");
+                ft.remove(getFragmentManager().findFragmentByTag("chat"));
+                ft.show(getFragmentManager().findFragmentByTag("list")).commit();
+            }else {
+                Fragment fragment = new FriendList();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "list")
+                        .addToBackStack("chatzilla").commit();
+            }
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Pass the event to ActionBarDrawerToggle, if it returns

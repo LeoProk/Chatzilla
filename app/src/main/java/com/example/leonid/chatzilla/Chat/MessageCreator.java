@@ -52,7 +52,7 @@ final class MessageCreator implements FactoryInterface {
         mChatText.append("\n" + "Me:" + "\n" + mMessage.getText().toString().trim());
         try {
             JSONObject data = new JSONObject();
-            data.put("action", "il.co.arielstudio.PUSH_NOTIFICATION");
+            data.put("action", "com.example.leonid.chatzilla.PUSH_NOTIFICATION");
             data.put("message", mMessage.getText().toString());
             data.put("phone", UtilitiesFactory.getFile(mContext, "phone").doTask());
             data.put("name", UtilitiesFactory.getFile(mContext, "name").doTask());
