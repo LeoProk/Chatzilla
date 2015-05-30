@@ -47,7 +47,7 @@ public class ChatFragment extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_chat, container, false);
         mTextView = (TextView) rootView.findViewById(R.id.chatHistory);
-        rootView.setBackground(getResources().getDrawable(R.drawable.godzilla_chat));
+        rootView.setBackground(getResources().getDrawable(R.drawable.godzilla_main));
         mTextView.setMovementMethod(new ScrollingMovementMethod());
         mScrollView = ((ScrollView) rootView.findViewById(R.id.chat_ScrollView));
         mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
@@ -59,6 +59,7 @@ public class ChatFragment extends Fragment {
                 ChatFactory.createMessage(getActivity(), editText, mTextView).doTask();
                 UtilitiesFactory.appendFile(getActivity(), AppController.mPhoneNum,
                         "\n" + "Me:" + "\n" + editText.getText().toString()).doTask();
+
             }
         });
         return rootView;

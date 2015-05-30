@@ -22,6 +22,7 @@ import com.example.leonid.chatzilla.Fragments.FriendList;
 import com.example.leonid.chatzilla.Fragments.LogIn;
 import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
 import com.example.leonid.chatzilla.UserInterface.UIFactory;
+import com.example.leonid.chatzilla.Utilities.UtilitiesFactory;
 import com.parse.ParseUser;
 
 import android.app.Fragment;
@@ -55,23 +56,14 @@ public class MainActivity extends ActionBarActivity {
         mDrawerToggle = (ActionBarDrawerToggle) getDrawer.doTask();
         Bundle bundle = getIntent().getExtras();
         if (ParseUser.getCurrentUser() == null) {
-            Fragment fragment = new LogIn();
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "login")
-                    .addToBackStack("chatzilla").commit();
+            UtilitiesFactory.addFragment(this, new LogIn(), "login", true).doTask();
         } else {
             if (getIntent().hasExtra("friendName")) {
                 AppController.mFriendName = bundle.getString("friendName");
                 AppController.mPhoneNum = bundle.getString("phoneNum");
-                Fragment fragment = new ChatFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "chat")
-                        .addToBackStack("chatzilla").commit();
+                UtilitiesFactory.addFragment(this, new ChatFragment(), "chat", true).doTask();
             } else {
-                Fragment fragment = new FriendList();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "list")
-                        .addToBackStack("chatzilla").commit();
+                UtilitiesFactory.addFragment(this, new FriendList(), "list", true).doTask();
             }
         }
     }
@@ -88,20 +80,22 @@ public class MainActivity extends ActionBarActivity {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
     @Override
     public void onBackPressed() {
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            if(getFragmentManager().findFragmentByTag("list")!=null) {
-                getFragmentManager().findFragmentByTag("list");
-                ft.remove(getFragmentManager().findFragmentByTag("chat"));
-                ft.show(getFragmentManager().findFragmentByTag("list")).commit();
-            }else {
-                Fragment fragment = new FriendList();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "list")
-                        .addToBackStack("chatzilla").commit();
-            }
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        if (getFragmentManager().findFragmentByTag("list") != null) {
+            getFragmentManager().findFragmentByTag("list");
+            ft.remove(getFragmentManager().findFragmentByTag("chat"));
+            ft.show(getFragmentManager().findFragmentByTag("list")).commit();
+        } else {
+            Fragment fragment = new FriendList();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "list")
+                    .addToBackStack("chatzilla").commit();
+        }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Pass the event to ActionBarDrawerToggle, if it returns

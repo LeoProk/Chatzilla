@@ -3,6 +3,7 @@ package com.example.leonid.chatzilla.Utilities;
 import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
 import com.example.leonid.chatzilla.Parse.User;
 
+import android.app.Fragment;
 import android.content.Context;
 
 import java.util.List;
@@ -30,5 +31,15 @@ public class UtilitiesFactory {
 
     public static FactoryInterface saveSQL(Context context, List<User> users) {
         return new SaveToSQL(context, users);
+    }
+
+    public static FactoryInterface addFragment(Context context, Fragment fragment, String tag,
+            boolean addToBackStack) {
+        return new AddFragment(context, fragment, tag, addToBackStack);
+    }
+
+    public static FactoryInterface replaceFragment(Context context, Fragment fragment, String tag,
+            boolean addToBackStack) {
+        return new ReplaceFragment(context, fragment, tag, addToBackStack);
     }
 }

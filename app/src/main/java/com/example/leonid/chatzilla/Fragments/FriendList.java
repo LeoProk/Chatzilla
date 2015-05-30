@@ -53,8 +53,8 @@ public class FriendList extends Fragment {
                 ChatFactory.onFriendSelected(position, friendsList).doTask();
                 Fragment fragment = new ChatFragment();
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "twitter")
-                        .addToBackStack("chatzilla").commit();
+                fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "chat")
+                        .commit();
 
             }
         });

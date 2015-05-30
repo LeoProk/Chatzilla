@@ -67,6 +67,7 @@ final class MessageCreator implements FactoryInterface {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        mChatText.setText("");
         return null;
     }
 }

@@ -108,7 +108,7 @@ final class ListViewCreator implements FactoryInterface {
             //Populate list view after getting all values
             ArrayAdapter<User> adapter = new ArrayAdapter<>(mContext,
                     android.R.layout.simple_list_item_1, mAppUsers);
-            UtilitiesFactory.saveSQL(mContext, mAppUsers);
+            UtilitiesFactory.saveSQL(mContext, mAppUsers).doTask();
             mFriendList.setAdapter(adapter);
         }
     }
