@@ -34,6 +34,13 @@ public class AppController extends Application {
 
     public static String mFriendName;
 
+    public static int numForStart;
+
+    public static int textHeight;
+
+    //save the length between messages for TextWithBackground
+    public static int params;
+
     @Override
     public void onCreate() {
         super.onCreate();

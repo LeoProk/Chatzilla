@@ -28,7 +28,6 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.widget.EditText;
-import android.widget.TextView;
 
 /**
  * Create new JSONObject message and saves it in parse.
@@ -39,17 +38,15 @@ final class MessageCreator implements FactoryInterface {
 
     private Context mContext;
 
-    private TextView mChatText;
-
-    MessageCreator(Context context, EditText message, TextView textView) {
+    MessageCreator(Context context, EditText message) {
         mContext = context;
         mMessage = message;
-        mChatText = textView;
     }
 
     @Override
     public Object doTask() {
-        mChatText.append("\n" + "Me:" + "\n" + mMessage.getText().toString().trim());
+        ChatFactory.addBackgroundText(mContext,
+                "\n" + "   " + "Me:" + " " + mMessage.getText().toString().trim() + "   ").doTask();
         try {
             JSONObject data = new JSONObject();
             data.put("action", "com.example.leonid.chatzilla.PUSH_NOTIFICATION");
@@ -67,7 +64,7 @@ final class MessageCreator implements FactoryInterface {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        mChatText.setText("");
+        mMessage.setText("");
         return null;
     }
 }

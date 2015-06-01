@@ -20,16 +20,15 @@ import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
 import android.content.Context;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 /**
  * Factory for creating contract message in text view, and on contact on select event
  */
 public class ChatFactory {
 
-    public static FactoryInterface createMessage(Context context, EditText message,
-            TextView chatWindow) {
-        return new MessageCreator(context, message, chatWindow);
+    public static FactoryInterface createMessage(Context context, EditText message
+    ) {
+        return new MessageCreator(context, message);
     }
 
     public static FactoryInterface onFriendSelected(int position, ListView listView) {
@@ -40,4 +39,9 @@ public class ChatFactory {
             String phone) {
         return new NotificationMaker(context, title, message, phone);
     }
+
+    public static FactoryInterface addBackgroundText(Context context, String message) {
+        return new TextWithBackground(context, message);
+    }
+
 }

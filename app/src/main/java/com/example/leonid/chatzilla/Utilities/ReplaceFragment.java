@@ -19,10 +19,10 @@ package com.example.leonid.chatzilla.Utilities;
 import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
 import com.example.leonid.chatzilla.R;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
 
 /**
  * Creates new fragment and replace the existing one/
@@ -51,14 +51,14 @@ final class ReplaceFragment implements FactoryInterface {
     public Object doTask() {
         if (mAddToBackStack) {
             Fragment fragment = mFragment;
-            FragmentManager fragmentManager = ((ActionBarActivity) mContext)
+            FragmentManager fragmentManager = ((Activity) mContext)
                     .getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment, mTag)
                     .addToBackStack(mTag).commit();
 
         } else {
             Fragment fragment = mFragment;
-            FragmentManager fragmentManager = ((ActionBarActivity) mContext)
+            FragmentManager fragmentManager = ((Activity) mContext)
                     .getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment, mTag)
                     .commit();
