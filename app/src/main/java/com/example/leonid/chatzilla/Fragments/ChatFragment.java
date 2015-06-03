@@ -23,7 +23,6 @@ import com.example.leonid.chatzilla.Utilities.UtilitiesFactory;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,9 +53,10 @@ public class ChatFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChatFactory.createMessage(getActivity(), editText).doTask();
                 UtilitiesFactory.appendFile(getActivity(), AppController.mPhoneNum,
-                        ("\n" + "   " + "Me:" + " " + editText.getText().toString().trim() + "   " + "/@newline@/")).doTask();
+                        ("\n" + "   " + "Me:" + " " + editText.getText().toString().trim() + "   "
+                                + "/@newline@/")).doTask();
+                ChatFactory.createMessage(getActivity(), editText).doTask();
 
             }
         });
@@ -66,10 +66,11 @@ public class ChatFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        final String chatHistory = (String) UtilitiesFactory
-                .getFile(getActivity(), AppController.mPhoneNum).doTask();
-        Log.e("yay", chatHistory);
-        ChatFactory.addBackgroundText(getActivity(), chatHistory).doTask();
+        final String chatHistory[] = ((String) UtilitiesFactory
+                .getFile(getActivity(), AppController.mPhoneNum).doTask()).split("/@newline@/");
+        for (int i = 0; i < chatHistory.length; i++) {
+            ChatFactory.addBackgroundText(getActivity(), chatHistory[i]).doTask();
+        }
 
         mScrollView.post(new Runnable() {
             @Override
@@ -77,6 +78,12 @@ public class ChatFragment extends Fragment {
                 mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
             }
         });
+
+    }
+
+    public void messageFromReceiver(String message) {
+        ChatFactory.addBackgroundText(getActivity(), message).doTask();
+        UtilitiesFactory.appendFile(getActivity(),AppController.mPhoneNum,message).doTask();
 
     }
 
@@ -89,6 +96,7 @@ public class ChatFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+
         mThis = null;
     }
 }

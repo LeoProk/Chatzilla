@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
- *  Add text views with background to the scroll view.
+ * Add text views with background to the scroll view.
  */
 final class TextWithBackground implements FactoryInterface {
 

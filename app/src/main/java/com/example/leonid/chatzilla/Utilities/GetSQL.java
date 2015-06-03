@@ -1,11 +1,12 @@
-package com.example.leonid.chatzilla.Chat;
+package com.example.leonid.chatzilla.Utilities;
 
 import com.example.leonid.chatzilla.Interfaces.FactoryInterface;
 
 /**
- * Created by Leo on 5/29/2015.
+ * Gets the data from
  */
-final class ContactsSizeCheck implements FactoryInterface {
+
+public class GetSQL implements FactoryInterface {
 
     @Override
     public Object doTask() {
