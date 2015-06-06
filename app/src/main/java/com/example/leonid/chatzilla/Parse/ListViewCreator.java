@@ -28,7 +28,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -97,19 +96,26 @@ final class ListViewCreator implements FactoryInterface {
         } else {
             contactParseChecker(mMatchingContacts.get(numOfContacts));
         }
+        if (mFriendList == null) {
+            return mAppUsers;
+        } else {
+            return false;
+        }
 
-        return false;
     }
 
+    // Query one user at  a time and if he exist in parse database add him to list
     final void queryNewUser() {
         if (numOfContacts != mMatchingContacts.size()) {
             contactParseChecker(mMatchingContacts.get(numOfContacts));
         } else {
-            //Populate list view after getting all values
-            ArrayAdapter<User> adapter = new ArrayAdapter<>(mContext,
-                    android.R.layout.simple_list_item_1, mAppUsers);
-            UtilitiesFactory.saveSQL(mContext, mAppUsers).doTask();
-            mFriendList.setAdapter(adapter);
+            if (mFriendList != null) {
+                //Populate list view after getting all values
+                ArrayAdapter<User> adapter = new ArrayAdapter<>(mContext,
+                        android.R.layout.simple_list_item_1, mAppUsers);
+                UtilitiesFactory.callSQL(mContext, mAppUsers, "save").doTask();
+                mFriendList.setAdapter(adapter);
+            }
         }
     }
 
@@ -117,14 +123,12 @@ final class ListViewCreator implements FactoryInterface {
 
         numOfContacts++;
         mQuery.whereEqualTo("phone", phoneNum.replaceAll("[\\D]", ""));
-        Log.e("Sleep", phoneNum.replaceAll("[\\D]", ""));
         mQuery.findInBackground(new FindCallback<ParseObject>() {
             // if there maching use in database crate new user
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {
                     for (ParseObject usersObject : objects) {
-                        Log.e(usersObject.getString("name"), usersObject.getString("phone"));
                         mAppUsers.add(new User(usersObject.getString("name"),
                                 usersObject.getString("phone")));
 

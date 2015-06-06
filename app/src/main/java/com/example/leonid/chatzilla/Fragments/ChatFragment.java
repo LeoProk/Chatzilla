@@ -83,7 +83,7 @@ public class ChatFragment extends Fragment {
 
     public void messageFromReceiver(String message) {
         ChatFactory.addBackgroundText(getActivity(), message).doTask();
-        UtilitiesFactory.appendFile(getActivity(),AppController.mPhoneNum,message).doTask();
+        UtilitiesFactory.appendFile(getActivity(), AppController.mPhoneNum, message).doTask();
 
     }
 

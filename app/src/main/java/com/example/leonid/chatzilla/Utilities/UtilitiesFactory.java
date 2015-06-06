@@ -29,8 +29,9 @@ public class UtilitiesFactory {
         return new AppendFile(context, filename, message);
     }
 
-    public static FactoryInterface saveSQL(Context context, List<User> users) {
-        return new SaveToSQL(context, users);
+    public static FactoryInterface callSQL(Context context, List<User> users,
+            String saveUpgradeRetrieve) {
+        return new SQLDatabase(context, users, saveUpgradeRetrieve);
     }
 
     public static FactoryInterface addFragment(Context context, Fragment fragment, String tag,
