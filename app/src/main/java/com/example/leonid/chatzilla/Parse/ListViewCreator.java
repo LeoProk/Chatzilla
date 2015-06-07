@@ -28,6 +28,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -113,9 +114,9 @@ final class ListViewCreator implements FactoryInterface {
                 //Populate list view after getting all values
                 ArrayAdapter<User> adapter = new ArrayAdapter<>(mContext,
                         android.R.layout.simple_list_item_1, mAppUsers);
-                UtilitiesFactory.callSQL(mContext, mAppUsers, "save").doTask();
                 mFriendList.setAdapter(adapter);
             }
+            UtilitiesFactory.callSQL(mContext, mAppUsers, "save").doTask();
         }
     }
 
@@ -131,6 +132,7 @@ final class ListViewCreator implements FactoryInterface {
                     for (ParseObject usersObject : objects) {
                         mAppUsers.add(new User(usersObject.getString("name"),
                                 usersObject.getString("phone")));
+                        Log.e("", usersObject.getString("phone"));
 
 
                     }

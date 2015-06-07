@@ -17,8 +17,9 @@
 package com.example.leonid.chatzilla.Fragments;
 
 import com.example.leonid.chatzilla.Chat.ChatFactory;
-import com.example.leonid.chatzilla.Parse.ParseFactory;
+import com.example.leonid.chatzilla.Parse.User;
 import com.example.leonid.chatzilla.R;
+import com.example.leonid.chatzilla.Utilities.UtilitiesFactory;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -28,13 +29,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.List;
 
 /**
  * Fragment of friend list with list view that hold users that both in phone contact list and app
  * parse database.
  */
 public class FriendList extends Fragment {
+
+    private  ListView friendsList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,8 +49,11 @@ public class FriendList extends Fragment {
         final View rootView = inflater.inflate(R.layout.friends_fragment, container, false);
         rootView.setBackground(getResources().getDrawable(R.drawable.godzilla_chat));
         //sets adapter to list view with contacts that march the parse user datebase
-        final ListView friendsList = (ListView) rootView.findViewById(R.id.friendsList);
-        ParseFactory.getUserList(getActivity(), friendsList).doTask();
+        friendsList = (ListView) rootView.findViewById(R.id.friendsList);
+        ArrayAdapter<User> adapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_list_item_1,
+                (List<User>) UtilitiesFactory.callSQL(getActivity(), null, "retrieve").doTask());
+        friendsList.setAdapter(adapter);
         friendsList.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
@@ -60,5 +69,11 @@ public class FriendList extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ChatFactory.checkNewContacts(getActivity(),friendsList).doTask();
     }
 }

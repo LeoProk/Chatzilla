@@ -17,7 +17,9 @@
 package com.example.leonid.chatzilla;
 
 
+import com.example.leonid.chatzilla.Chat.ChatFactory;
 import com.example.leonid.chatzilla.Parse.User;
+import com.example.leonid.chatzilla.Utilities.UtilitiesFactory;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParsePush;
@@ -44,15 +46,6 @@ public class AppController extends Application {
     //save the length between messages for TextWithBackground
     public static int params;
 
-    private List<User> parseUsers;
-
-    public List<User> getParseUsers() {
-        return parseUsers;
-    }
-
-    public void setParseUsers(List<User> parseUsers) {
-        this.parseUsers = parseUsers;
-    }
 
     @Override
     public void onCreate() {
@@ -70,6 +63,11 @@ public class AppController extends Application {
                 }
             }
         });
+        if (((String) UtilitiesFactory.getFile(this, "friends").doTask()).length() == 0) {
+            ChatFactory.checkNewContacts(this,null).doTask();
+
+        }
+
     }
-    
+
 }

@@ -44,4 +44,8 @@ public class ChatFactory {
         return new TextWithBackground(context, message);
     }
 
+    public static FactoryInterface checkNewContacts(Context context, ListView friendList) {
+        return new ContactsSizeCheck(context,friendList);
+    }
+
 }

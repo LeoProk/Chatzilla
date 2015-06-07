@@ -30,8 +30,8 @@ public class UtilitiesFactory {
     }
 
     public static FactoryInterface callSQL(Context context, List<User> users,
-            String saveUpgradeRetrieve) {
-        return new SQLDatabase(context, users, saveUpgradeRetrieve);
+            String saveRetrieveUpdate) {
+        return new SQLDatabase(context, users, saveRetrieveUpdate);
     }
 
     public static FactoryInterface addFragment(Context context, Fragment fragment, String tag,
