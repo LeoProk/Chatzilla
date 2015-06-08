@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 
+//Chat fragment send and receive message from the selected use in friends list
 
 public class ChatFragment extends Fragment {
 

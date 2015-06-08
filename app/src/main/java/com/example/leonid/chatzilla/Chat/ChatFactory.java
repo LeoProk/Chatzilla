@@ -26,26 +26,31 @@ import android.widget.ListView;
  */
 public class ChatFactory {
 
+    //Query the message we wrote to parse.
     public static FactoryInterface createMessage(Context context, EditText message
     ) {
         return new MessageCreator(context, message);
     }
 
+    //Get the selected user phone and name.
     public static FactoryInterface onFriendSelected(int position, ListView listView) {
         return new OnFriendsSelected(position, listView);
     }
 
+    //Create notification from CustomReciever text that the other user sent.
     public static FactoryInterface createNotification(Context context, String title, String message,
             String phone) {
         return new NotificationMaker(context, title, message, phone);
     }
 
+    //Creates text view with background when we send or receive messages
     public static FactoryInterface addBackgroundText(Context context, String message) {
         return new TextWithBackground(context, message);
     }
 
+    //Check the size of contract and  if it changes from last check, runs all contacts in parse database
     public static FactoryInterface checkNewContacts(Context context, ListView friendList) {
-        return new ContactsSizeCheck(context,friendList);
+        return new ContactsSizeCheck(context, friendList);
     }
 
 }

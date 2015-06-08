@@ -25,8 +25,6 @@ import com.example.leonid.chatzilla.UserInterface.UIFactory;
 import com.example.leonid.chatzilla.Utilities.UtilitiesFactory;
 import com.parse.ParseUser;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -55,6 +53,7 @@ public class MainActivity extends ActionBarActivity {
         FactoryInterface getDrawer = UIFactory.getDrawer(this, mDrawerLayout, mDrawerList);
         mDrawerToggle = (ActionBarDrawerToggle) getDrawer.doTask();
         Bundle bundle = getIntent().getExtras();
+        //fragment  handling
         if (ParseUser.getCurrentUser() == null) {
             UtilitiesFactory.addFragment(this, new LogIn(), "login", true).doTask();
         } else {
@@ -84,15 +83,12 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public void onBackPressed() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        if (getFragmentManager().findFragmentByTag("list") != null) {
+        if (getFragmentManager().findFragmentByTag("list") != null && getFragmentManager().findFragmentByTag("chat") != null ) {
             getFragmentManager().findFragmentByTag("list");
             ft.remove(getFragmentManager().findFragmentByTag("chat"));
             ft.show(getFragmentManager().findFragmentByTag("list")).commit();
         } else {
-            Fragment fragment = new FriendList();
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().add(R.id.frame_container, fragment, "list")
-                    .addToBackStack("chatzilla").commit();
+            System.exit(0);
         }
     }
 

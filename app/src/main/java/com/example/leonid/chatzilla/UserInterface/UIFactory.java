@@ -27,11 +27,12 @@ import android.widget.ListView;
  */
 public class UIFactory {
 
-
+    //Creates toolbar actionbar must be disabled in manifest
     public static FactoryInterface getToolbar(Context context, Toolbar toolbar) {
         return new CustomToolbar(context, toolbar);
     }
 
+    //Creates navigation drawer
     public static FactoryInterface getDrawer(Context context, DrawerLayout mDrawerLayout,
             ListView mDrawerList) {
         return new CustomDrawer(context, mDrawerLayout, mDrawerList);

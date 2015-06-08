@@ -18,7 +18,6 @@ package com.example.leonid.chatzilla;
 
 
 import com.example.leonid.chatzilla.Chat.ChatFactory;
-import com.example.leonid.chatzilla.Parse.User;
 import com.example.leonid.chatzilla.Utilities.UtilitiesFactory;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -28,27 +27,31 @@ import com.parse.SaveCallback;
 import android.app.Application;
 import android.util.Log;
 
-import java.util.List;
-
 /**
- * Application class, initialize parse with app info.
+ * Application class, initialize parse with app info and run contacts check with parse database
+ * on app first time user.
  */
 public class AppController extends Application {
 
+    // Friend phone number changes on user click in FriendList fragment
     public static String mPhoneNum;
 
+    // Friend name  changes on user click in FriendList fragment
     public static String mFriendName;
 
+    //
     public static int numForStart;
 
+    // Height of text for correct text background placement in TextWithBackground
     public static int textHeight;
 
-    //save the length between messages for TextWithBackground
+    // Length between messages for TextWithBackground
     public static int params;
 
 
     @Override
     public void onCreate() {
+        //Initializing parse info with dev parse icon details
         super.onCreate();
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "JH4PvyQBIfygc3ZpVPutfrrzXhZzBpg5aHyOXmUQ",
@@ -63,8 +66,10 @@ public class AppController extends Application {
                 }
             }
         });
+        //On first time app run crate friend with contacts length and check it for matching parse
+        //users
         if (((String) UtilitiesFactory.getFile(this, "friends").doTask()).length() == 0) {
-            ChatFactory.checkNewContacts(this,null).doTask();
+            ChatFactory.checkNewContacts(this, null).doTask();
 
         }
 

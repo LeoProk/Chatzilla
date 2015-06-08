@@ -40,7 +40,7 @@ import java.util.List;
  */
 public class FriendList extends Fragment {
 
-    private  ListView friendsList;
+    private ListView friendsList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,6 +74,6 @@ public class FriendList extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ChatFactory.checkNewContacts(getActivity(),friendsList).doTask();
+        ChatFactory.checkNewContacts(getActivity(), friendsList).doTask();
     }
 }
