@@ -61,6 +61,10 @@ final class TextWithBackground implements FactoryInterface {
                     layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                     textView.setGravity(Gravity.RIGHT);
 
+                }else  {
+                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                    textView.setGravity(Gravity.LEFT);
+
                 }
                 layoutParams.setMargins(0, AppController.params, 0, 0);
                 viewForText.addView(textView, layoutParams);

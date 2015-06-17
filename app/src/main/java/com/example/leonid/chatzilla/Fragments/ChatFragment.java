@@ -21,6 +21,7 @@ import com.example.leonid.chatzilla.Chat.ChatFactory;
 import com.example.leonid.chatzilla.R;
 import com.example.leonid.chatzilla.Utilities.UtilitiesFactory;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 //Chat fragment send and receive message from the selected use in friends list
@@ -36,11 +38,16 @@ public class ChatFragment extends Fragment {
 
     public static ChatFragment mThis = null;
 
+    public boolean mCheckNewText;
+
     private ScrollView mScrollView;
+
+    private RelativeLayout mViewForText;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fragment_chat, container, false);
         rootView.setBackground(getResources().getDrawable(R.drawable.godzilla_main));
@@ -49,6 +56,8 @@ public class ChatFragment extends Fragment {
         AppController.textHeight = 0;
         AppController.numForStart = 1;
         AppController.params = 1;
+        mCheckNewText = true;
+        mViewForText =  (RelativeLayout) rootView.findViewById(R.id.chat_window);
         final EditText editText = (EditText) rootView.findViewById(R.id.input);
         final Button button = (Button) rootView.findViewById(R.id.send);
         button.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +76,14 @@ public class ChatFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        if (mCheckNewText == true) {
+            getTextFromStorage();
+        }
+    }
+
+    private void getTextFromStorage() {
+        mViewForText.removeAllViews();
+        mCheckNewText = false;
         final String chatHistory[] = ((String) UtilitiesFactory
                 .getFile(getActivity(), AppController.mPhoneNum).doTask()).split("/@newline@/");
         for (int i = 0; i < chatHistory.length; i++) {
@@ -84,7 +101,6 @@ public class ChatFragment extends Fragment {
 
     public void messageFromReceiver(String message) {
         ChatFactory.addBackgroundText(getActivity(), message).doTask();
-        UtilitiesFactory.appendFile(getActivity(), AppController.mPhoneNum, message).doTask();
 
     }
 
