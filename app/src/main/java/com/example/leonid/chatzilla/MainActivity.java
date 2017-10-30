@@ -44,14 +44,12 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //create the toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        FactoryInterface getToolbar = UIFactory.getToolbar(this, toolbar);
-        getToolbar.doTask();
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        UIFactory.getToolbar(this, toolbar).doTask();
         //create the drawer
-        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ListView mDrawerList = (ListView) findViewById(R.id.slider_list);
-        FactoryInterface getDrawer = UIFactory.getDrawer(this, mDrawerLayout, mDrawerList);
-        mDrawerToggle = (ActionBarDrawerToggle) getDrawer.doTask();
+        final DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final ListView mDrawerList = (ListView) findViewById(R.id.slider_list);
+        mDrawerToggle = (ActionBarDrawerToggle)UIFactory.getDrawer(this, mDrawerLayout, mDrawerList).doTask();
         Bundle bundle = getIntent().getExtras();
         //fragment  handling
         if (ParseUser.getCurrentUser() == null) {
